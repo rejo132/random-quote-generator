@@ -6,12 +6,12 @@
 
 body {
     font-family: 'Poppins', Arial, sans-serif;
-    background-image: url('https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1'); /* Initial image */
+    background-image: url('https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-color: linear-gradient(135deg, #74ebd5, #acb6e5); /* Fallback if image fails */
+    background-color: linear-gradient(135deg, #74ebd5, #acb6e5);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -109,6 +109,35 @@ body.dark .filter select {
 .filter select:focus {
     border-color: #007BFF;
     outline: none;
+}
+
+.search {
+    margin: 20px 0;
+}
+
+.search label {
+    font-size: 1.1em;
+    color: #34495e;
+    margin-right: 10px;
+}
+
+body.dark .search label {
+    color: #b2bec3;
+}
+
+#search-input {
+    padding: 8px 12px;
+    font-size: 1em;
+    border: 2px solid #dcdcdc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 200px;
+}
+
+body.dark #search-input {
+    border-color: #576574;
+    background-color: #2d3436;
+    color: #e0e0e0;
 }
 
 .quote-box {

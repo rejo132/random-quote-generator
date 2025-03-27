@@ -1,4 +1,3 @@
-// DOM elements
 const quoteText = document.getElementById("quote-text");
 const quoteAuthor = document.getElementById("quote-author");
 const newQuoteBtn = document.getElementById("new-quote");
@@ -11,8 +10,9 @@ const categoryFilter = document.getElementById("category");
 const favoritesList = document.getElementById("favorites-list");
 const spinner = document.getElementById("spinner");
 const themeBtn = document.getElementById("theme-btn");
+const searchInput = document.getElementById("search-input");
 
-if (!quoteText || !quoteAuthor || !newQuoteBtn || !saveQuoteBtn || !copyQuoteBtn || !shareQuoteBtn || !speakQuoteBtn || !clearFavoritesBtn || !categoryFilter || !favoritesList || !spinner || !themeBtn) {
+if (!quoteText || !quoteAuthor || !newQuoteBtn || !saveQuoteBtn || !copyQuoteBtn || !shareQuoteBtn || !speakQuoteBtn || !clearFavoritesBtn || !categoryFilter || !favoritesList || !spinner || !themeBtn || !searchInput) {
     console.error("One or more DOM elements not found. Check HTML IDs.");
 }
 
@@ -30,16 +30,16 @@ const staticQuotes = [
 ];
 
 const backgroundImages = [
-    "https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1", // Mountains
-    "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1", // Lake
-    "https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1", // Forest
-    "https://images.pexels.com/photos/462162/pexels-photo-462162.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1", // Ocean sunset
-    "https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1", // Snowy peaks
-    "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",       // Mountain valley
-    "https://images.pexels.com/photos/3493777/pexels-photo-3493777.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1", // Waterfall
-    "https://images.pexels.com/photos/572688/pexels-photo-572688.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",  // Rolling hills
-    "https://images.pexels.com/photos/9754/pexels-photo-9754.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",     // Desert dunes
-    "https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1"   // Coastal cliffs
+    "https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/462162/pexels-photo-462162.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/3493777/pexels-photo-3493777.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/572688/pexels-photo-572688.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/9754/pexels-photo-9754.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
+    "https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1"
 ];
 
 function setRandomBackground() {
@@ -84,7 +84,7 @@ async function displayRandomQuote() {
         setRandomBackground();
     } catch (error) {
         console.error("API fetch error:", error);
-        console.log("Falling back to static quotes...");
+        console.log("Falling back to static quotes collection...");
         let filteredQuotes = staticQuotes;
         if (selectedCategory !== "all") {
             filteredQuotes = staticQuotes.filter(quote => quote.category === selectedCategory);
@@ -109,6 +109,7 @@ function saveQuote() {
     const currentQuote = {
         text: quoteText.textContent.replace(/"/g, ""),
         author: quoteAuthor.textContent.slice(2),
+        category: categoryFilter.value === "all" ? "general" : categoryFilter.value
     };
 
     if (currentQuote.text === "" || currentQuote.text === "No quotes available for this category.") return;
@@ -119,16 +120,22 @@ function saveQuote() {
     }
 }
 
-function renderFavorites() {
+function renderFavorites(searchTerm = "") {
     favoritesList.innerHTML = "";
-    favorites.forEach(fav => {
+    let filteredFavorites = favorites;
+    if (searchTerm) {
+        filteredFavorites = favorites.filter(fav =>
+            fav.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            fav.author.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }
+    filteredFavorites.forEach(fav => {
         const li = document.createElement("li");
         li.textContent = `"${fav.text}" - ${fav.author}`;
         favoritesList.appendChild(li);
     });
 }
 
-// Theme toggle logic
 function updateThemeButtonText() {
     themeBtn.textContent = document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
 }
@@ -139,11 +146,6 @@ themeBtn.addEventListener("click", () => {
     localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
     updateThemeButtonText();
 });
-
-// Load saved theme
-const savedTheme = localStorage.getItem("theme") || "light";
-document.body.classList.add(savedTheme);
-updateThemeButtonText();
 
 newQuoteBtn.addEventListener("click", displayRandomQuote);
 saveQuoteBtn.addEventListener("click", saveQuote);
@@ -170,7 +172,13 @@ clearFavoritesBtn.addEventListener("click", () => {
     }
 });
 categoryFilter.addEventListener("change", displayRandomQuote);
+searchInput.addEventListener("input", () => {
+    renderFavorites(searchInput.value.trim());
+});
 
-// Initial load
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.classList.add(savedTheme);
+updateThemeButtonText();
+
 setRandomBackground();
 displayRandomQuote();
