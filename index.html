@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Quote Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
+        <div class="theme-toggle">
+            <button id="theme-btn">Dark Mode</button>
+        </div>
         <h1>Random Quote Generator</h1>
         <div class="filter">
             <label for="category">Filter by Category:</label>
@@ -19,15 +23,22 @@
             </select>
         </div>
         <div class="quote-box">
-            <p id="quote-text">"Loading quote..."</p>
+            <p id="quote-text">"Loading advice..."</p>
+            <div class="spinner" id="spinner"></div>
             <p id="quote-author">- Unknown</p>
         </div>
         <div class="buttons">
             <button id="new-quote">New Quote</button>
             <button id="save-quote">Save to Favorites</button>
+            <button id="copy-quote">Copy</button>
+            <button id="share-quote">Share on X</button>
+            <button id="speak-quote">Speak</button>
         </div>
-        <h2>Your Favorites</h2>
-        <ul id="favorites-list"></ul>
+        <div class="favorites-section">
+            <h2>Your Favorites</h2>
+            <button id="clear-favorites">Clear Favorites</button>
+            <ul id="favorites-list"></ul>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
