@@ -37,3 +37,5 @@ Font: Poppins
 
 LICENSE
 MIT License.
+## License
+[MIT License](LICENSE)
