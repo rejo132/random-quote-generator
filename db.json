@@ -1,0 +1,10 @@
+{
+    "quotes": [
+      { "id": 1, "text": "The only way to do great work is to love what you do.", "author": "Steve Jobs", "category": "inspirational" },
+      { "id": 2, "text": "I told my wife she was drawing her eyebrows too high. She looked surprised.", "author": "Stephen Wright", "category": "funny" },
+      { "id": 3, "text": "Life is what happens when you're busy making other plans.", "author": "John Lennon", "category": "life" },
+      { "id": 4, "text": "Be yourself; everyone else is already taken.", "author": "Oscar Wilde", "category": "inspirational" },
+      { "id": 5, "text": "I’m not arguing, I’m just explaining why I’m right.", "author": "Unknown", "category": "funny" }
+    ]
+  }
+  
