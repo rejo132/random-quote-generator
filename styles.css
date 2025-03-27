@@ -1,24 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-image: url('https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1'); /* Initial image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: linear-gradient(135deg, #74ebd5, #acb6e5); /* Fallback if image fails */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    margin: 0;
+    align-items: center;
     padding: 20px;
+    transition: background-color 0.5s ease;
+}
+
+body.light {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+body.dark {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .container {
     text-align: center;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    max-width: 700px;
     width: 100%;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.dark .container {
+    background: rgba(34, 34, 34, 0.95);
+    color: #e0e0e0;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#theme-btn {
+    padding: 8px 15px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#theme-btn:hover {
+    background-color: #5a6268;
 }
 
 h1 {
-    color: #333;
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+body.dark h1 {
+    color: #dfe6e9;
 }
 
 .filter {
@@ -26,50 +81,232 @@ h1 {
 }
 
 .filter label {
+    font-size: 1.1em;
+    color: #34495e;
     margin-right: 10px;
 }
 
+body.dark .filter label {
+    color: #b2bec3;
+}
+
+.filter select {
+    padding: 8px 12px;
+    font-size: 1em;
+    border: 2px solid #dcdcdc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.5s ease;
+}
+
+body.dark .filter select {
+    border-color: #576574;
+    background-color: #2d3436;
+    color: #e0e0e0;
+}
+
+.filter select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
 .quote-box {
-    margin: 20px 0;
+    margin: 30px 0;
+    padding: 20px;
+    background: linear-gradient(45deg, #e8f1ff, #f0f8ff);
+    border-radius: 10px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: background 0.5s ease;
+}
+
+body.dark .quote-box {
+    background: linear-gradient(45deg, #2d3436, #353b48);
 }
 
 #quote-text {
-    font-size: 1.5em;
-    color: #555;
+    font-size: 1.8em;
+    color: #2c3e50;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#quote-text.fade-in {
+    opacity: 1;
+}
+
+body.dark #quote-text {
+    color: #dfe6e9;
 }
 
 #quote-author {
+    font-size: 1.2em;
     font-style: italic;
-    color: #888;
+    color: #7f8c8d;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#quote-author.fade-in {
+    opacity: 1;
+}
+
+body.dark #quote-author {
+    color: #b2bec3;
+}
+
+.spinner {
+    display: none;
+    width: 25px;
+    height: 25px;
+    border: 4px solid #ccc;
+    border-top: 4px solid #007BFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 15px auto;
+}
+
+body.dark .spinner {
+    border-color: #576574;
+    border-top-color: #00b4d8;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .buttons {
-    margin: 20px 0;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #007BFF;
+    padding: 12px 25px;
+    font-size: 1em;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 button:hover {
+    transform: translateY(-2px);
+}
+
+#new-quote {
+    background-color: #007BFF;
+}
+
+#new-quote:hover {
     background-color: #0056b3;
+}
+
+#save-quote {
+    background-color: #28a745;
+}
+
+#save-quote:hover {
+    background-color: #218838;
+}
+
+#copy-quote {
+    background-color: #6c757d;
+}
+
+#copy-quote:hover {
+    background-color: #5a6268;
+}
+
+#share-quote {
+    background-color: #1da1f2;
+}
+
+#share-quote:hover {
+    background-color: #0d95e8;
+}
+
+#speak-quote {
+    background-color: #ff9800;
+}
+
+#speak-quote:hover {
+    background-color: #fb8c00;
+}
+
+.favorites-section {
+    margin-top: 30px;
+}
+
+h2 {
+    color: #34495e;
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+body.dark h2 {
+    color: #dfe6e9;
+}
+
+#clear-favorites {
+    padding: 8px 15px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#clear-favorites:hover {
+    background-color: #c82333;
 }
 
 #favorites-list {
     list-style-type: none;
     padding: 0;
     text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 #favorites-list li {
     background: #f9f9f9;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-size: 1.1em;
+    color: #2c3e50;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+body.dark #favorites-list li {
+    background: #353b48;
+    color: #e0e0e0;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    #quote-text {
+        font-size: 1.5em;
+    }
+    button {
+        padding: 10px 20px;
+    }
+    .theme-toggle {
+        top: 10px;
+        right: 10px;
+    }
 }
